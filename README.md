@@ -2,7 +2,7 @@
 
 Some LeetCode solution from zclaiqcc.
 
-- main.cpp is just for debug and test.
+- main.cpp is just for debugging and testing.
 - Solution.h is a collection of all the solutions.
 - the other .h is corresponding with one single problem.
 
