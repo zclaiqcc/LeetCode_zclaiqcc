@@ -1,11 +1,11 @@
 /** 
-* OJ:LeetCode
-* Problem: 1_twoSum
-* Author: zclaiqcc
-* Blog: zclaicc.github.io
-* Github: github.com/zclaiqcc
-* Contract: zclaiqcc@gmail.com
-*/
+ * OJ:LeetCode
+ * Problem: 1. twoSum
+ * Author: zclaiqcc
+ * Blog: zclaicc.github.io
+ * Github: github.com/zclaiqcc
+ * Email: zclaiqcc@gmail.com
+ */
 
 #ifndef _1_TWOSUM_H_
 #define _1_TWOSUM_H_

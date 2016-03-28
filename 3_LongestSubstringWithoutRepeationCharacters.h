@@ -4,23 +4,17 @@
 * Author: zclaiqcc
 * Blog: zclaicc.github.io
 * Github: github.com/zclaiqcc
-* Contract: zclaiqcc@gmail.com
+* Email: zclaiqcc@gmail.com
 */
 
-#ifndef _1_TWOSUM_H_
-#define _1_TWOSUM_H_
+#ifndef _3_LONGESTSUBSTRINGWITHOUTREPEATIONCHARACTERS_H_
+#define _3_LONGESTSUBSTRINGWITHOUTREPEATIONCHARACTERS_H_
 
 #include"Solution.h"
 #include<vector>
 #include<algorithm>
 
 using namespace std; //Shall not using namespaces in .h, bur for ez.
-
-struct ListNode {
-	int val;
-	ListNode *next;
-	ListNode(int x) : val(x), next(NULL) {}
-};
 
 class Solution {
 public:

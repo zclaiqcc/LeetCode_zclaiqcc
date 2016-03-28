@@ -4,7 +4,7 @@
 * Author: zclaiqcc
 * Blog: zclaicc.github.io
 * Github: github.com/zclaiqcc
-* Contract: zclaiqcc@gmail.com
+* Email: zclaiqcc@gmail.com
 */
 
 #ifndef _15_THREESUM_H_

@@ -291,22 +291,16 @@ public:
 	}
 
 	//10. Regular Expression Matching
+	//recursion solution
+	bool isMatch(string s, string p) {
+		if (p.empty())
+			return s.empty();
 
-	//My DP
-	//bool isMatch(string s, string p) {
-
-	//}
-
-	////recursion solution
-	//bool isMatch(string s, string p) {
-	//	if (p.empty())
-	//		return s.empty();
-
-	//	if ('*' == p[1])
-	//		return (isMatch(s, p.substr(2)) || !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p));
-	//	else
-	//		return !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p.substr(1));
-	//}
+		if ('*' == p[1])
+			return (isMatch(s, p.substr(2)) || !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p));
+		else
+			return !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p.substr(1));
+	}
 
 	//DP (as for dynamic programming) solution
 	bool isMatch(string s, string p) {
@@ -645,15 +639,15 @@ public:
 			if (first > 0 && nums[first] == nums[first - 1]) {
 				continue;
 			}
-			if (nums[first] + nums[first + 1] + nums[first + 2] + nums[first + 3]>target) break;
-			if (nums[first] + nums[nums_size - 3] + nums[nums_size - 2] + nums[nums_size - 1]<target) continue;
+			if (nums[first] + nums[first + 1] + nums[first + 2] + nums[first + 3] > target) break;
+			if (nums[first] + nums[nums_size - 3] + nums[nums_size - 2] + nums[nums_size - 1] < target) continue;
 
 			for (int second = first + 1; second < nums_size; second++) {
 				if (second > first + 1 && nums[second] == nums[second - 1]) {
 					continue;
 				}
-				if (nums[first] + nums[second] + nums[second + 1] + nums[second + 2]>target) break;
-				if (nums[first] + nums[second] + nums[nums_size - 2] + nums[nums_size - 1]<target) continue;
+				if (nums[first] + nums[second] + nums[second + 1] + nums[second + 2] > target) break;
+				if (nums[first] + nums[second] + nums[nums_size - 2] + nums[nums_size - 1] < target) continue;
 
 				int third = second + 1;
 				int fourth = nums_size - 1;

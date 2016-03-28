@@ -1,11 +1,11 @@
 /**
-* OJ:LeetCode
-* Problem: 2. Add Two Numbers
-* Author: zclaiqcc
-* Blog: zclaicc.github.io
-* Github: github.com/zclaiqcc
-* Contract: zclaiqcc@gmail.com
-*/
+ * OJ:LeetCode
+ * Problem: 2. Add Two Numbers
+ * Author: zclaiqcc
+ * Blog: zclaicc.github.io
+ * Github: github.com/zclaiqcc
+ * Email: zclaiqcc@gmail.com
+ */
 
 #ifndef _2_ADDTWONUMBERS_H_
 #define _2_ADDTWONUMBERS_H_
