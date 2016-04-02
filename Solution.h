@@ -17,6 +17,198 @@ struct ListNode {
 
 class Solution {
 public:
+	//25. Reverse Nodes in k-Group
+	//recursion ver.
+	ListNode* reverseKGroup(ListNode* head, int k) {
+		if (1 == k || nullptr == head) {
+			return head;
+		}
+		int i = 1;
+		ListNode* rear = head;
+		ListNode* head_temp = new ListNode(0);
+		head_temp->next = head;
+		ListNode* temp = head;
+
+		while (rear) {
+			if (0 == i % k) {
+				rear = rear->next;
+				if (1 == i / k) {
+					head = reverseListRecursionWithSomeSmallChanges(head_temp->next, rear);
+					head_temp = head_temp->next;
+					head_temp->next = rear;
+				}
+				else {
+					temp = head_temp->next;
+					head_temp->next = reverseListRecursionWithSomeSmallChanges(head_temp->next, rear);
+					temp->next = rear;
+					head_temp = temp;
+				}
+				i++;
+			}
+			else {
+				rear = rear->next;
+				i++;
+			}
+		}
+		return head;
+	}
+
+	//reverse a list with recursion.
+	ListNode* reverseListRecursionWithSomeSmallChanges(ListNode* head, ListNode* rear) {
+		if (rear == head->next) { //if (nullptr == head->next)
+			return head;
+		}
+
+		ListNode* head_new = reverseListRecursionWithSomeSmallChanges(head->next, rear);
+		head->next->next = head;
+		head->next = nullptr;
+		return head_new;
+	}
+
+	//reverse a list with recursion.
+	ListNode* reverseListRecursion(ListNode* head) {
+		//I couldn't figure out why so many bolgs would use if(nullptr == head || nullptr == head->next). 
+		//One step at once, so nullptr == head would never be true cuz the last recursion has passed when nullptr == head->next. 
+		//Stupid
+		if (nullptr == head->next) {
+			return head;
+		}
+
+		ListNode* head_new = reverseList(head->next);
+		head->next->next = head;
+		head->next = nullptr;
+		return head_new;
+	}
+
+	//ListNode* reverseKGroup(ListNode* head, int k) {
+	//	if (1 == k || head == nullptr) {
+	//		return head;
+	//	}
+	//	ListNode* head_temp = new ListNode(0);
+	//	head_temp->next = head;//the virtual head of every part of list
+	//	ListNode* first = head;//the very first one of every part of list(in fact it always be the last node of each part)
+	//	ListNode* second = head->next;// the node that would be the new first node of the part.
+	//	ListNode* third = head->next;// third node will move at the beginning of loop
+	//	ListNode* rear = head;
+	//	int i = 1;
+	//	while (rear) {
+	//		if (0 == i % k) {
+	//			rear = rear->next;
+	//			while (third != rear) {
+	//				third = third->next;
+
+	//				second->next = head_temp->next;
+	//				first->next = third;
+	//				head_temp->next = second;
+	//				second = first->next;
+	//			}
+	//			if (1 == i / k) {
+	//				head = head_temp->next;
+	//			}
+	//			if (rear) {
+	//				head_temp = first;
+	//				first = rear;
+	//				second = third = rear->next;
+	//			}
+
+	//			i++;
+	//		}
+	//		else {
+	//			rear = rear->next;
+	//			i++;
+	//		}
+	//	}
+
+	//	return head;
+	//}
+
+	//22. Generate Parentheses
+	vector<string> generateParenthesis(int n) {
+		vector<string> res;
+		//m is initialized as 0.
+		addingpar(res, "", n, 0);
+		return res;
+	}
+	//n means the left parentheses, m means the right ones.
+	void addingpar(vector<string> &v, string str, int n, int m) {
+		if (n == 0 && m == 0) {
+			v.push_back(str);
+			return;
+		}
+		if (m > 0) { addingpar(v, str + ")", n, m - 1); }
+		if (n > 0) { addingpar(v, str + "(", n - 1, m + 1); }
+	}
+
+	//17. Letter Combinations of a Phone Number
+	vector<string> letterCombinations(string digits) {
+		vector<string> map{ {}, {},{ "abc" },{ "def" },{ "ghi" },{ "jkl" },{ "mno" },{ "pqrs" },{ "tuv" },{ "wxyz" } };
+		vector<string> result;
+		if (digits.size() < 1) {
+			return result;
+		}
+		result.push_back("");
+
+		int digits_size = digits.size();
+		for (int i = 0; i < digits_size; i++) {
+			vector<string> temp;
+			int map_size = map[digits[i] - '0'].size();
+			for (int j = 0; j < map_size; j++) {
+				int result_size = result.size();
+				for (int k = 0; k < result_size; k++) {
+					temp.push_back(result[k] + map[digits[i] - '0'][j]);
+				}
+			}
+			result = temp;
+		}
+
+		return result;
+	}
+
+	//16. 3SumClosest
+	int threeSumClosest(vector<int>& nums, int target) {
+		int nums_size = nums.size();
+		sort(nums.begin(), nums.end());
+		int min = nums[0] + nums[1] + nums[2];
+		for (int begin = 0; begin + 2 < nums_size; begin++) {
+
+			//very important lines,it does really matter.
+			//to escape the duplication.
+			if ((begin > 0) && (nums[begin] == nums[begin - 1]))
+				continue;
+
+			//for faster
+			//change nums[N] into target and make the sum equals to -nums[N]
+			
+			int next = begin + 1;
+			int end = nums_size - 1;
+
+			while (next < end) {
+				int res = nums[begin] + nums[next] + nums[end];
+				if (res > target) {
+					if (abs(min - target) > abs(res - target)) {
+						min = res;
+					}
+					end--;
+					while (nums[end] == nums[end + 1])
+						end--;
+				}
+				else if (res < target) {
+					if (abs(min - target) > abs(res - target)) {
+						min = res;
+					}
+					next++;
+					while (nums[next] == nums[next] - 1)
+						next++;
+
+				}
+				else {
+					return target;
+				}
+			}
+		}
+		return min;
+	}
+
 	//4. Median of Two Sorted Arrays
 	double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
 		if (nums1.size() > nums2.size()) {
@@ -292,15 +484,15 @@ public:
 
 	//10. Regular Expression Matching
 	//recursion solution
-	bool isMatch(string s, string p) {
-		if (p.empty())
-			return s.empty();
+	//bool isMatch(string s, string p) {
+	//	if (p.empty())
+	//		return s.empty();
 
-		if ('*' == p[1])
-			return (isMatch(s, p.substr(2)) || !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p));
-		else
-			return !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p.substr(1));
-	}
+	//	if ('*' == p[1])
+	//		return (isMatch(s, p.substr(2)) || !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p));
+	//	else
+	//		return !s.empty() && (s[0] == p[0] || '.' == p[0]) && isMatch(s.substr(1), p.substr(1));
+	//}
 
 	//DP (as for dynamic programming) solution
 	bool isMatch(string s, string p) {
